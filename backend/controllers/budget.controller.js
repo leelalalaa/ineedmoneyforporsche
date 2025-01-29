@@ -64,3 +64,19 @@ export const deleteBudget = async (req,res) => {
         res.status(404).json({ success: false, message: "Budget not found" }); 
     }
 };
+
+export const putBudget = async (req,res) => {
+    const {id} = req.params; 
+    const budget = req.body;
+    
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "Invalid Budget Id" });
+    }
+    
+    try {
+        const updatedBudget = await Budget.findByIdAndUpdate(id, budget, {new:true});
+        res.status(200).json({ success: true, data: updatedBudget }); 
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Server Error" }); 
+    }
+};
