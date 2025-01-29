@@ -1,13 +1,27 @@
 import Transaction from '../models/transaction.model.js';
 
 export const postTransaction = async (req,res) => {
-    const trx = req.body;
+    const { amount, category, desc, method, recurring } = req.body;
+ 
+    console.log("amount: " + amount);
+    console.log("category: " + category);
+    console.log("desc: " + desc);
+    console.log("method: " + method);
+    console.log("recurring: " + recurring);
+    console.log("date: " + new Date());
 
-    if(!trx.amount || !trx.category || !trx.desc || !trx.method) {
+    if(!amount || !category || !desc || !method) {
         return res.status(400).json({ success: false, message: "Please provide all fields" }); 
     }
 
-    const newTrx = new Transaction(trx);
+    const newTrx = new Transaction({
+        amount,
+        category,
+        desc: desc,
+        method: method,
+        recurring: recurring || false, // Default false if not provided
+        date: new Date() // Auto-generate date here
+    });
 
     try {
         await newTrx.save(); 

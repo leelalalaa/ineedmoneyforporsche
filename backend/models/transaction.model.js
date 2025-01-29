@@ -17,6 +17,14 @@ const transactionSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
+    recurring:{
+        type:Boolean,
+        required:false
+    },
+    date:{
+        type:Date,
+        required:true
+    }
 }, {
     timestamps: true // createdAt, updatedAt
 });
