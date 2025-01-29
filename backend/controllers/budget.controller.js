@@ -50,4 +50,17 @@ export const getIndivBudget = async (req,res) => {
         console.error("Error fetching budget:", error);
         res.status(500).json({ success: false, message: "Server error" });
     }
-}
+};
+
+export const deleteBudget = async (req,res) => {
+    const {id} = req.params; 
+    try {
+        const deletedBudget = await Budget.findByIdAndDelete(id); 
+        if(!deletedBudget) {
+            return res.status(404).json({ success: false, message: "Budget not found" }); 
+        }
+        res.status(200).json({ success: true, message: "Budget Deleted" });
+    } catch (error) {
+        res.status(404).json({ success: false, message: "Budget not found" }); 
+    }
+};

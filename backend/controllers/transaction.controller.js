@@ -35,7 +35,7 @@ export const getTransactions = async (req,res) => {
     }
 };
 
-export const getIndivTrx = async (req,res) => {
+export const getIndivTransaction = async (req,res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -52,4 +52,17 @@ export const getIndivTrx = async (req,res) => {
         console.error("Error fetching transaction:", error);
         res.status(500).json({ success: false, message: "Server error." });
     }
-}
+};
+
+export const deleteTransaction = async (req,res) => {
+    const {id} = req.params; 
+    try {
+        const deletedTrx = await Transaction.findByIdAndDelete(id); 
+        if(!deletedTrx) {
+            return res.status(404).json({ success: false, message: "Transaction not found" }); 
+        }
+        res.status(200).json({ success: true, message: "Transaction Deleted" });
+    } catch (error) {
+        res.status(404).json({ success: false, message: "Transaction not found" }); 
+    }
+};
