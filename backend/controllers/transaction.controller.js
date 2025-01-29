@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Transaction from '../models/transaction.model.js';
 
 export const postTransaction = async (req,res) => {
@@ -24,3 +25,31 @@ export const postTransaction = async (req,res) => {
         res.status(500).json({ success: false, message: "Server Error." });
     }
 };
+
+export const getTransactions = async (req,res) => {
+    try {
+        const trxs = await Transaction.find({});
+        res.status(200).json({ success: true, data: trxs }); 
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Server Error." }); 
+    }
+};
+
+export const getIndivTrx = async (req,res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ success: false, message: "Invalid ID format" });
+    }
+
+    try {
+        const trx = await Transaction.findById(id);
+        if (!trx) {
+            return res.status(404).json({ success: false, message: "Transaction not found." });
+        }
+        res.status(200).json({ success: true, data: trx });
+    } catch (error) {
+        console.error("Error fetching transaction:", error);
+        res.status(500).json({ success: false, message: "Server error." });
+    }
+}
