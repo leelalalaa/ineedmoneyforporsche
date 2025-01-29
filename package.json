@@ -1,0 +1,32 @@
+{
+  "name": "ineedmoneyforporsche",
+  "version": "1.0.0",
+  "description": "1. first create frontend and backend folders",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon backend/server.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leelalalaa/ineedmoneyforporsche.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leelalalaa/ineedmoneyforporsche/issues"
+  },
+  "homepage": "https://github.com/leelalalaa/ineedmoneyforporsche#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
